@@ -9,17 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as TodosRouteImport } from './routes/todos'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
-const TransactionsRoute = TransactionsRouteImport.update({
-  id: '/transactions',
-  path: '/transactions',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TodosRoute = TodosRouteImport.update({
   id: '/todos',
   path: '/todos',
@@ -46,14 +40,12 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/todos': typeof TodosRoute
-  '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/todos': typeof TodosRoute
-  '/transactions': typeof TransactionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,14 +53,13 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/todos': typeof TodosRoute
-  '/transactions': typeof TransactionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/todos' | '/transactions'
+  fullPaths: '/' | '/dashboard' | '/login' | '/todos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login' | '/todos' | '/transactions'
-  id: '__root__' | '/' | '/dashboard' | '/login' | '/todos' | '/transactions'
+  to: '/' | '/dashboard' | '/login' | '/todos'
+  id: '__root__' | '/' | '/dashboard' | '/login' | '/todos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,18 +67,10 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   TodosRoute: typeof TodosRoute
-  TransactionsRoute: typeof TransactionsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/transactions': {
-      id: '/transactions'
-      path: '/transactions'
-      fullPath: '/transactions'
-      preLoaderRoute: typeof TransactionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/todos': {
       id: '/todos'
       path: '/todos'
@@ -124,7 +107,6 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   TodosRoute: TodosRoute,
-  TransactionsRoute: TransactionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

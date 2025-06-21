@@ -1,24 +1,16 @@
+import { TransactionForm } from "@/components/transaction-form";
+import { TransactionList } from "@/components/transactions-list";
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 
 export const Route = createFileRoute("/")({
-  component: HomeComponent,
+  component: RouteComponent,
 });
 
-function HomeComponent() {
-  const [count, setCount] = useState<number>(0);
+function RouteComponent() {
   return (
-    <div className="container mx-auto px-2 py-2">
-      <div className="grid gap-6">
-        <Button
-          variant="outline"
-          onClick={() => setCount((prevVal) => prevVal + 1)}
-        >
-          count: {count}
-        </Button>
-      </div>
+    <div className="flex justify-between px-2 py-1 gap-2">
+      <TransactionForm />
+      <TransactionList />
     </div>
   );
 }

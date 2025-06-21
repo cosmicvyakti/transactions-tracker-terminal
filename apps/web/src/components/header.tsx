@@ -36,7 +36,7 @@ export default function Header() {
               />
             </div>
           )}
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </div>
     </div>
