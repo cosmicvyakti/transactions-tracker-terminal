@@ -12,7 +12,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState } from "react";
 
-  import { trpc } from "@/utils/trpc";
+import { trpc } from "@/utils/trpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/todos")({
@@ -22,25 +22,29 @@ export const Route = createFileRoute("/todos")({
 function TodosRoute() {
   const [newTodoText, setNewTodoText] = useState("");
 
-    const todos = useQuery(trpc.todo.getAll.queryOptions());
-    const createMutation = useMutation(
-      trpc.todo.create.mutationOptions({
-        onSuccess: () => {
-          todos.refetch();
-          setNewTodoText("");
-        },
-      }),
-    );
-    const toggleMutation = useMutation(
-      trpc.todo.toggle.mutationOptions({
-        onSuccess: () => { todos.refetch() },
-      }),
-    );
-    const deleteMutation = useMutation(
-      trpc.todo.delete.mutationOptions({
-        onSuccess: () => { todos.refetch() },
-      }),
-    );
+  const todos = useQuery(trpc.todo.getAll.queryOptions());
+  const createMutation = useMutation(
+    trpc.todo.create.mutationOptions({
+      onSuccess: () => {
+        todos.refetch();
+        setNewTodoText("");
+      },
+    }),
+  );
+  const toggleMutation = useMutation(
+    trpc.todo.toggle.mutationOptions({
+      onSuccess: () => {
+        todos.refetch();
+      },
+    }),
+  );
+  const deleteMutation = useMutation(
+    trpc.todo.delete.mutationOptions({
+      onSuccess: () => {
+        todos.refetch();
+      },
+    }),
+  );
 
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,23 +83,27 @@ function TodosRoute() {
               type="submit"
               disabled={createMutation.isPending || !newTodoText.trim()}
             >
-                {createMutation.isPending ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
+              {createMutation.isPending
+                ? <Loader2 className="h-4 w-4 animate-spin" />
+                : (
                   "Add"
                 )}
             </Button>
           </form>
 
-            {todos.isLoading ? (
+          {todos.isLoading
+            ? (
               <div className="flex justify-center py-4">
                 <Loader2 className="h-6 w-6 animate-spin" />
               </div>
-            ) : todos.data?.length === 0 ? (
+            )
+            : todos.data?.length === 0
+            ? (
               <p className="py-4 text-center">
                 No todos yet. Add one above!
               </p>
-            ) : (
+            )
+            : (
               <ul className="space-y-2">
                 {todos.data?.map((todo) => (
                   <li
@@ -106,8 +114,7 @@ function TodosRoute() {
                       <Checkbox
                         checked={todo.completed}
                         onCheckedChange={() =>
-                          handleToggleTodo(todo.id, todo.completed)
-                        }
+                          handleToggleTodo(todo.id, todo.completed)}
                         id={`todo-${todo.id}`}
                       />
                       <label

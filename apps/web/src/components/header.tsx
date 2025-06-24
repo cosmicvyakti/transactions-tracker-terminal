@@ -24,18 +24,20 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-2">
           {/* <UserMenu /> */}
-          {healthCheck.isLoading ? (
-            <span className="text-sm text-gray-500">Checking health...</span>
-          ) : healthCheck.isError ? (
-            <span className="text-sm text-red-500">Health check failed</span>
-          ) : (
-            <div className="text-sm flex gap-2">
-              API{" "}
-              <div
-                className={`h-2 w-2 rounded-full self-center ${healthCheck.data ? "bg-green-500" : "bg-red-500"}`}
-              />
-            </div>
-          )}
+          {healthCheck.isLoading
+            ? <span className="text-sm text-gray-500">Checking health...</span>
+            : healthCheck.isError
+            ? <span className="text-sm text-red-500">Health check failed</span>
+            : (
+              <div className="text-sm flex gap-2">
+                API{" "}
+                <div
+                  className={`h-2 w-2 rounded-full self-center ${
+                    healthCheck.data ? "bg-green-500" : "bg-red-500"
+                  }`}
+                />
+              </div>
+            )}
           {/* <ModeToggle /> */}
         </div>
       </div>
